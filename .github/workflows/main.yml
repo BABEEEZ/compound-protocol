@@ -1,0 +1,22 @@
+name: Daily Fake Commit
+
+on:
+  schedule:
+    - cron: '0 12 * * *' # Every day at 12:00 UTC
+  workflow_dispatch:
+
+jobs:
+  fake-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Create fake commit
+        run: |
+          echo "// fake contribution $(date)" >> fake.js
+          git config user.name "BABEEEZ"
+          git config user.email "rooksic@gmail.com"
+          git add fake.js
+          git commit -m "chore: update fake.js"
+          git push
